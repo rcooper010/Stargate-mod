@@ -10,15 +10,24 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Download ZIP
+      - name: Set up Python (for gdown)
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install gdown
+        run: pip install gdown
+
+      - name: Download ZIP via gdown
         run: |
-          wget -O ArkReactors_Teleporter.zip \
-            "https://drive.google.com/uc?export=download&id=1A2B3C4D5E6F7G8H9"
+          gdown https://drive.google.com/uc?id=1A2B3C4D5E6F7G8H9 -O ArkReactors_Teleporter.zip
 
       - name: Unzip package
         run: unzip -o ArkReactors_Teleporter.zip -d .
 
       - name: Commit new files
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -29,5 +38,3 @@ jobs:
                   README_SETUP_GUIDE.txt
           git commit -m "Add cinematic Stargate teleporter package" || echo "No changes to commit"
           git push
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
