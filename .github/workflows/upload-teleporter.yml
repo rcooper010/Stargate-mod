@@ -31,10 +31,11 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add ArkReactors_Teleporter.fbx \
-                  ArkReactors_Teleporter.stl \
-                  ArkReactors_Teleporter.uasset \
-                  Materials/ \
-                  README_SETUP_GUIDE.txt
+          git add \
+            ArkReactors_Teleporter.fbx \
+            ArkReactors_Teleporter.stl \
+            ArkReactors_Teleporter.uasset \
+            Materials/ \
+            README_SETUP_GUIDE.txt
           git commit -m "Add cinematic Stargate teleporter package" || echo "No changes to commit"
           git push
